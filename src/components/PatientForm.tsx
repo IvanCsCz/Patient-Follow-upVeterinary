@@ -1,4 +1,12 @@
+import { useForm } from "react-hook-form"
+import ErrorMsg from "./ErrorMsg"
+
 function PatientForm() {
+  const { register, handleSubmit, formState: {errors} } = useForm()
+
+  const registerPatient = () => {
+    console.log('first')
+  }
   
   return (
     <div className="md:w-1/2 lg:w-2/5 mx-5">
@@ -12,6 +20,7 @@ function PatientForm() {
       <form 
         className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
         noValidate
+        onSubmit={handleSubmit(registerPatient)}
       >
         <div className="mb-5">
           <label htmlFor="name" className="text-sm uppercase font-bold">
@@ -19,10 +28,18 @@ function PatientForm() {
           </label>
           <input  
             id="name"
-            className="w-full p-3  border border-gray-100"  
+            className={`w-full p-3  border border-gray-100 ${errors.name && 'border-red-600'}`}  
             type="text" 
             placeholder="Patient's Name" 
+            {...register('name', {
+              required: "Patient's name is required"
+            })}
           />
+          {errors.name && (
+            <ErrorMsg> 
+              {errors.name?.message?.toString()}
+            </ErrorMsg>
+          )}
         </div>
 
         <div className="mb-5">

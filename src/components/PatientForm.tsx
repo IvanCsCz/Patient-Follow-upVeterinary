@@ -44,14 +44,22 @@ function PatientForm() {
 
         <div className="mb-5">
           <label htmlFor="caretaker" className="text-sm uppercase font-bold">
-            Owner 
+            Caretaker 
           </label>
           <input  
             id="caretaker"
             className="w-full p-3  border border-gray-100"  
             type="text" 
-            placeholder="Owner's Name" 
+            placeholder="Caretaker's Name" 
+            {...register('caretaker', {
+              required: "Caretaker's name is required"
+            })}
           />
+          {errors.caretaker && (
+            <ErrorMsg> 
+              {errors.caretaker?.message?.toString()}
+            </ErrorMsg>
+          )}
         </div>
 
         <div className="mb-5">
@@ -63,7 +71,19 @@ function PatientForm() {
             className="w-full p-3  border border-gray-100"  
             type="email" 
             placeholder="name@example.com" 
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email'
+              }
+            })} 
           />
+          {errors.email && (
+            <ErrorMsg> 
+              {errors.email?.message?.toString()}
+            </ErrorMsg>
+          )}
         </div>
 
         <div className="mb-5">
@@ -74,7 +94,15 @@ function PatientForm() {
             id="date"
             className="w-full p-3  border border-gray-100"  
             type="date" 
+            {...register('date', {
+              required: "Date of Registration is required"
+            })}
           />
+          {errors.date && (
+            <ErrorMsg> 
+              {errors.date?.message?.toString()}
+            </ErrorMsg>
+          )}
         </div>
           
         <div className="mb-5">
@@ -85,7 +113,15 @@ function PatientForm() {
             id="symptoms"
             className="w-full p-3  border border-gray-100"  
             placeholder="Symptoms" 
-          ></textarea>
+            {...register('symptoms', {
+              required: "Symptoms are required"
+            })}
+          />
+          {errors.symptoms && (
+            <ErrorMsg> 
+              {errors.symptoms?.message?.toString()}
+            </ErrorMsg>
+          )}
         </div>
 
         <input

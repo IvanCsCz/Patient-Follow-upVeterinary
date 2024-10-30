@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
 import { usePatientStore } from "../store/store"
 import { DrafPatient } from "../types"
 import ErrorMsg from "./ErrorMsg"
@@ -17,13 +18,15 @@ function PatientForm() {
       setValue('email', activePatient.email)
       setValue('symptoms', activePatient.symptoms)
     }
-  },[activeId])
+  },[activeId, patients, setValue])
   
   const registerPatient = (data: DrafPatient) => {
     if(activeId){
       updatePatient(data)
+      toast.success('Patient updated successfully')
     } else {
       addPatient(data)
+      toast.success('Patient registered successfully')
     }
 
     reset()

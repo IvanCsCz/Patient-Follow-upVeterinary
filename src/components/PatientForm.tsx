@@ -5,10 +5,12 @@ import ErrorMsg from "./ErrorMsg"
 
 function PatientForm() {
   const { addPatient } = usePatientStore()
-  const { register, handleSubmit, formState: {errors} } = useForm<DrafPatient>()
+  const { register, handleSubmit, formState: {errors}, reset } = useForm<DrafPatient>()
 
   const registerPatient = (data: DrafPatient) => {
     addPatient(data)
+
+    reset()
   }
   
   return (
@@ -91,7 +93,7 @@ function PatientForm() {
 
         <div className="mb-5">
           <label htmlFor="date" className="text-sm uppercase font-bold">
-            Date of Registration
+            Registration Date
           </label>
           <input  
             id="date"

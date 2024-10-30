@@ -3,8 +3,9 @@ import { create } from "zustand";
 import { DrafPatient, Patient } from "../types";
 
 type PatientState = {
-  patients: Patient[]
-  addPatient: (data: DrafPatient) => void
+  patients: Patient[],
+  addPatient: (data: DrafPatient) => void,
+  deletePatient: (id: Patient['id']) => void
 }
 
 const createPatient = (patient: DrafPatient): Patient => {
@@ -17,6 +18,11 @@ export const usePatientStore = create<PatientState>((set) => ({
     const newPatient = createPatient(data)
     set((state) => ({
       patients: [...state.patients, newPatient]
+    }))
+  },
+  deletePatient: (id) => {
+    set((state) => ({
+      patients: state.patients.filter(patient => patient.id !== id)
     }))
   }
 }))
